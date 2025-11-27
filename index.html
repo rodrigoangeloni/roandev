@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Rodrigo Angeloni - Estudiante de Ciencias de la Computación en Paraguay. Especializado en administración de servidores Linux, Docker, AWS y desarrollo web. Administrador de comunidad gaming con 800+ miembros.">
+    <meta name="keywords" content="Rodrigo Angeloni, desarrollador Paraguay, administrador servidores, Docker, Linux, AWS, Assetto Corsa, gaming servers, desarrollo web, estudiante computación">
+    <meta name="author" content="Rodrigo Angeloni">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/rodrigoangeloni">
+    <meta property="og:title" content="Rodrigo Angeloni - Portfolio | Estudiante de Ciencias de la Computación">
+    <meta property="og:description" content="🇵🇾 Estudiante UAA Paraguay | 🐧 Admin Servidores Linux | 🏎️ Gaming Community 800+ | Docker, AWS, Web Dev">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/rodrigoangeloni">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://github.com/rodrigoangeloni">
+    <meta property="twitter:title" content="Rodrigo Angeloni - Portfolio">
+    <meta property="twitter:description" content="🇵🇾 Estudiante de Ciencias de la Computación | Admin Servidores | Gaming Community">
+    <meta property="twitter:image" content="https://avatars.githubusercontent.com/u/rodrigoangeloni">
+    
+    <title>Rodrigo Angeloni - Portfolio | Desarrollador & SysAdmin</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300e5ff;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2300ff9f;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%230b0b0b'/%3E%3Ctext x='50' y='70' font-family='Arial, sans-serif' font-size='60' font-weight='bold' fill='url(%23grad)' text-anchor='middle'%3ERA%3C/text%3E%3C/svg%3E">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+        <p>Cargando Portfolio...</p>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" class="scroll-top" title="Volver arriba">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">RoanDev<span class="dot">.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Inicio</a></li>
+            <li><a href="#about">Sobre Mí</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <span class="greeting">Hola, soy</span>
+            <h1 id="name" class="neon-text-cyan">Cargando...</h1>
+            <h2 class="subtitle">Estudiante de <span class="neon-text-green">Ciencia de la Computación</span></h2>
+            <p id="bio" class="bio-text">Cargando biografía...</p>
+            <div class="hero-btns">
+                <a href="#portfolio" class="btn btn-primary">Ver Proyectos</a>
+                <a href="https://github.com/rodrigoangeloni" target="_blank" class="btn btn-outline">GitHub</a>
+            </div>
+            <div id="stats" class="stats-container">
+                <!-- Stats injected by JS -->
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="img-wrapper">
+                <img id="avatar" src="" alt="Avatar">
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title">Sobre <span class="highlight">Mí</span></h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>🌟 Mi historia</h3>
+                    <p>🇵🇾 Estudiante universitario de la UAA en Paraguay, apasionado por la tecnología y la administración de sistemas. Administro servidores multijugador con más de 800 miembros en mi comunidad de simuladores de carreras, combinando desarrollo web con infraestructura en la nube.</p>
+                    <p>🏎️ Trabajo con Docker, Linux y AWS para optimizar servidores gaming (Assetto Corsa principalmente), mientras aprendo desarrollo web moderno y programación. Mi setup principal corre en Debian Linux desde 2021.</p>
+                    
+                    <div class="fun-facts">
+                        <h4>⚡ Datos Curiosos</h4>
+                        <ul>
+                            <li>🏁 Administro comunidad de simuladores con 800+ miembros</li>
+                            <li>🧉 Tomo mate mientras resuelvo problemas de servidores</li>
+                            <li>📖 Leyendo "El Libro de Docker" y "JavaScript: The Good Parts"</li>
+                            <li>🎮 Aficionado de Assetto Corsa y simuladores de carreras</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="about-skills">
+                    <h3>💪 Mis Habilidades</h3>
+                    <div class="skills">
+                        <div class="skill-item">
+                            <span>🐳 Docker / Linux / Bash</span>
+                            <div class="progress-bar"><div class="progress" style="width: 90%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>💻 HTML5 / CSS3 / JavaScript</span>
+                            <div class="progress-bar"><div class="progress" style="width: 80%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>🐍 Python / Java / C#</span>
+                            <div class="progress-bar"><div class="progress" style="width: 70%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <span>☁️ AWS / NGINX / Servidores</span>
+                            <div class="progress-bar"><div class="progress" style="width: 85%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="section tech-section">
+        <div class="container">
+            <h2 class="section-title">Tech <span class="highlight">Stack</span></h2>
+            <p class="section-subtitle">Tecnologías que uso en el día a día</p>
+            <div class="tech-grid">
+                <!-- Docker -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="dockerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2496ED;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1a73e8;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="20" y="40" width="10" height="10" fill="url(#dockerGrad)"/>
+                        <rect x="35" y="40" width="10" height="10" fill="url(#dockerGrad)"/>
+                        <rect x="50" y="40" width="10" height="10" fill="url(#dockerGrad)"/>
+                        <rect x="65" y="40" width="10" height="10" fill="url(#dockerGrad)"/>
+                        <rect x="35" y="25" width="10" height="10" fill="url(#dockerGrad)"/>
+                        <rect x="50" y="25" width="10" height="10" fill="url(#dockerGrad)"/>
+                        <path d="M15 55 Q15 65 25 65 L75 65 Q85 65 85 55 L85 50 L15 50 Z" fill="url(#dockerGrad)"/>
+                    </svg>
+                    <span>Docker</span>
+                </div>
+                
+                <!-- Linux -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="linuxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FCC624;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#f39c12;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <ellipse cx="50" cy="30" rx="15" ry="20" fill="url(#linuxGrad)"/>
+                        <ellipse cx="50" cy="60" rx="20" ry="25" fill="url(#linuxGrad)"/>
+                        <ellipse cx="35" cy="75" rx="8" ry="10" fill="url(#linuxGrad)"/>
+                        <ellipse cx="65" cy="75" rx="8" ry="10" fill="url(#linuxGrad)"/>
+                    </svg>
+                    <span>Linux</span>
+                </div>
+                
+                <!-- JavaScript -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="jsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F7DF1E;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#e6c200;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="15" y="15" width="70" height="70" rx="10" fill="url(#jsGrad)"/>
+                        <text x="50" y="70" font-family="Arial" font-size="50" font-weight="bold" fill="#000" text-anchor="middle">JS</text>
+                    </svg>
+                    <span>JavaScript</span>
+                </div>
+                
+                <!-- Python -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="pythonGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3776AB;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1e5a8e;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="pythonGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FFD43B;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#f39c12;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M30 20 Q20 20 20 30 L20 50 L50 50 L50 30 Q50 20 40 20 Z" fill="url(#pythonGrad1)"/>
+                        <path d="M70 80 Q80 80 80 70 L80 50 L50 50 L50 70 Q50 80 60 80 Z" fill="url(#pythonGrad2)"/>
+                        <circle cx="35" cy="30" r="3" fill="#fff"/>
+                        <circle cx="65" cy="70" r="3" fill="#333"/>
+                    </svg>
+                    <span>Python</span>
+                </div>
+                
+                <!-- AWS -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="awsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#FF9900;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ec7211;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M30 60 L50 30 L70 60 Z" fill="url(#awsGrad)"/>
+                        <rect x="25" y="60" width="50" height="15" fill="url(#awsGrad)"/>
+                    </svg>
+                    <span>AWS</span>
+                </div>
+                
+                <!-- NGINX -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="nginxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#009639;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#006b29;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="20" y="20" width="60" height="60" rx="8" fill="url(#nginxGrad)"/>
+                        <path d="M35 35 L35 65 L45 55 L45 35 Z" fill="#fff"/>
+                        <path d="M55 35 L55 65 L65 55 L65 35 Z" fill="#fff" opacity="0.7"/>
+                    </svg>
+                    <span>NGINX</span>
+                </div>
+                
+                <!-- HTML5 -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="htmlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#E34F26;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#c9341a;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M20 15 L30 85 L50 90 L70 85 L80 15 Z" fill="url(#htmlGrad)"/>
+                        <path d="M50 25 L50 80 L65 77 L72 25 Z" fill="#fff" opacity="0.8"/>
+                        <path d="M50 25 L28 25 L30 45 L50 45 L50 55 L35 55 L37 70 L50 73 Z" fill="#fff" opacity="0.5"/>
+                    </svg>
+                    <span>HTML5</span>
+                </div>
+                
+                <!-- CSS3 -->
+                <div class="tech-card">
+                    <svg viewBox="0 0 100 100" class="tech-icon">
+                        <defs>
+                            <linearGradient id="cssGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1572B6;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#0e5a8e;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M20 15 L30 85 L50 90 L70 85 L80 15 Z" fill="url(#cssGrad)"/>
+                        <path d="M50 25 L50 80 L65 77 L72 25 Z" fill="#fff" opacity="0.8"/>
+                        <path d="M50 25 L28 25 L30 45 L50 45 L50 55 L35 55 L37 70 L50 73 Z" fill="#fff" opacity="0.5"/>
+                    </svg>
+                    <span>CSS3</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio-section">
+        <div class="container">
+            <h2 class="section-title">Mi <span class="highlight">Portfolio</span></h2>
+            <p class="section-subtitle">Mis últimos repositorios de GitHub</p>
+            
+            <!-- Available Badge -->
+            <div class="availability-badge">
+                <span class="badge-dot"></span>
+                <span>Disponible para colaborar en proyectos</span>
+            </div>
+            
+            <div id="repo-grid" class="repo-grid">
+                <!-- Repos injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Tienes un proyecto en mente?</h2>
+                <p>Estoy abierto a colaborar en proyectos de servidores, automatización, desarrollo web y gaming infrastructure</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Contáctame</a>
+                    <a href="https://github.com/rodrigoangeloni" target="_blank" class="btn btn-outline">Ver GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Contáctame</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fa-brands fa-github"></i>
+                    <h3>GitHub</h3>
+                    <a href="https://github.com/rodrigoangeloni" target="_blank" id="github-link">@rodrigoangeloni</a>
+                </div>
+                <div class="contact-card" id="contact-email">
+                    <i class="fa-solid fa-envelope"></i>
+                    <h3>Email</h3>
+                    <a href="mailto:rodrigoangeloni@gmail.com">rodrigoangeloni@gmail.com</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fa-brands fa-steam"></i>
+                    <h3>Steam</h3>
+                    <a href="https://steamcommunity.com/id/rodrigo_angeloni/" target="_blank">rodrigo_angeloni</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fa-brands fa-discord"></i>
+                    <h3>Discord</h3>
+                    <a href="https://discord.gg/MDhhtbu" target="_blank">Únete al servidor</a>
+                </div>
+                <div class="contact-card" id="contact-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <h3>Ubicación</h3>
+                    <p>🇵🇾 Paraguay</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Rodrigo Angeloni. Creado con <i class="fa-solid fa-heart neon-text-green"></i> y código.</p>
+            <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                <i class="fa-solid fa-quote-left"></i> "El único error real es aquel del que no aprendemos nada." - Henry Ford
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
