@@ -233,6 +233,117 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// ========== FETCH LANGUAGE STATS ==========
+async function fetchLanguageStats() {
+    try {
+        const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
+
+        if (reposRes.status === 403) {
+            console.warn('Rate limit exceeded for language stats');
+            return null;
+        }
+
+        if (!reposRes.ok) return null;
+        const repos = await reposRes.json();
+
+        // Objeto para acumular bytes por lenguaje
+        const languageStats = {};
+
+        // Obtener lenguajes de cada repositorio (sin forks)
+        const languagePromises = repos
+            .filter(repo => !repo.fork)
+            .map(async (repo) => {
+                try {
+                    const langRes = await fetch(repo.languages_url);
+                    if (!langRes.ok) return null;
+                    return await langRes.json();
+                } catch (err) {
+                    console.warn(`Error fetching languages for ${repo.name}:`, err);
+                    return null;
+                }
+            });
+
+        const languagesData = await Promise.all(languagePromises);
+
+        // Acumular bytes por lenguaje
+        languagesData.forEach(langData => {
+            if (langData) {
+                Object.entries(langData).forEach(([lang, bytes]) => {
+                    languageStats[lang] = (languageStats[lang] || 0) + bytes;
+                });
+            }
+        });
+
+        // Calcular total de bytes
+        const totalBytes = Object.values(languageStats).reduce((sum, bytes) => sum + bytes, 0);
+
+        // Convertir a porcentajes y ordenar
+        const languagePercentages = Object.entries(languageStats)
+            .map(([lang, bytes]) => ({
+                name: lang,
+                percentage: ((bytes / totalBytes) * 100).toFixed(1)
+            }))
+            .sort((a, b) => b.percentage - a.percentage)
+            .slice(0, 8); // Top 8 lenguajes
+
+        return languagePercentages;
+    } catch (err) {
+        console.error('Error fetching language stats:', err);
+        return null;
+    }
+}
+
+// ========== RENDER SKILLS ==========
+function renderSkills(languageStats) {
+    const skillsContainer = document.getElementById('skills-container');
+
+    if (!languageStats || languageStats.length === 0) {
+        skillsContainer.innerHTML = '<p style="text-align: center; color: #888;">No se pudieron cargar las habilidades</p>';
+        return;
+    }
+
+    // Mapeo de lenguajes a emojis
+    const languageEmojis = {
+        'JavaScript': '💻',
+        'TypeScript': '📘',
+        'Python': '🐍',
+        'Java': '☕',
+        'C#': '🎯',
+        'C++': '⚡',
+        'C': '🔧',
+        'Go': '🐹',
+        'Rust': '🦀',
+        'Ruby': '💎',
+        'PHP': '🐘',
+        'HTML': '🌐',
+        'CSS': '🎨',
+        'Shell': '🐚',
+        'Dockerfile': '🐳',
+        'Makefile': '🔨',
+        'Lua': '🌙',
+        'Batchfile': '📝',
+        'PowerShell': '⚙️',
+        'Kotlin': '🅺',
+        'Swift': '🍎',
+        'Dart': '🎯',
+        'R': '📊',
+        'MATLAB': '📈',
+        'Jupyter Notebook': '📓'
+    };
+
+    skillsContainer.innerHTML = languageStats.map(skill => {
+        const emoji = languageEmojis[skill.name] || '💡';
+        return `
+            <div class="skill-item">
+                <span>${emoji} ${escapeHtml(skill.name)}</span>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${skill.percentage}%"></div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
 // ========== FETCH GITHUB DATA ==========
 async function fetchData() {
     try {
@@ -350,6 +461,11 @@ async function fetchData() {
 
         // Add intersection observer for animations
         observeElements();
+
+        // Fetch and render language stats for skills section
+        const languageStats = await fetchLanguageStats();
+        renderSkills(languageStats);
+
 
     } catch (err) {
         console.error('Error fetching data:', err);
