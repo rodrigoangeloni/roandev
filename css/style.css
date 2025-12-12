@@ -502,7 +502,7 @@ html {
 }
 /* ========== PORTFOLIO SECTION ========== */
 .availability-badge {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 10px;
     background: rgba(0, 255, 159, 0.1);
@@ -510,11 +510,8 @@ html {
     padding: 12px 24px;
     border-radius: 25px;
     margin: 0 auto 40px;
-    display: flex;
     justify-content: center;
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .badge-dot {
