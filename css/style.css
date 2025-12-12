@@ -66,7 +66,9 @@ html {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* ========== SCROLL TO TOP ========== */
@@ -287,8 +289,15 @@ html {
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 .img-wrapper img {
@@ -304,7 +313,7 @@ html {
 /* ========== NEON TEXT EFFECTS ========== */
 .neon-text-cyan {
     color: #fff;
-    text-shadow: 
+    text-shadow:
         0 0 7px #fff,
         0 0 10px #fff,
         0 0 21px #fff,
@@ -314,7 +323,7 @@ html {
 
 .neon-text-green {
     color: #00ff9f;
-    text-shadow: 
+    text-shadow:
         0 0 7px #00ff9f,
         0 0 10px #00ff9f,
         0 0 21px #00ff9f;
@@ -448,6 +457,7 @@ html {
     width: 1em;
     margin-right: 8px;
 }
+
 /* ========== TECH STACK SECTION ========== */
 .tech-section {
     background: rgba(0, 229, 255, 0.02);
@@ -500,6 +510,7 @@ html {
     font-size: 14px;
     text-align: center;
 }
+
 /* ========== PORTFOLIO SECTION ========== */
 .availability-badge {
     display: flex;
@@ -524,11 +535,14 @@ html {
 }
 
 @keyframes pulse-dot {
-    0%, 100% { 
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 1;
     }
-    50% { 
+
+    50% {
         transform: scale(1.2);
         opacity: 0.8;
     }
@@ -634,6 +648,9 @@ html {
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .contact-card::before {
@@ -677,14 +694,16 @@ html {
     font-size: 16px;
 }
 
-.contact-card a {
+.contact-card span {
     color: #00ff9f;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s;
+    word-break: break-word;
+    display: inline-block;
 }
 
-.contact-card a:hover {
+.contact-card:hover span {
     color: #00e5ff;
 }
 
@@ -731,6 +750,7 @@ html {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -741,6 +761,7 @@ html {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -772,11 +793,11 @@ footer p {
     .navbar {
         padding: 20px 30px;
     }
-    
+
     .menu-toggle {
         display: block;
     }
-    
+
     .nav-links {
         position: fixed;
         top: 70px;
@@ -792,81 +813,81 @@ footer p {
         width: 60%;
         box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
     }
-    
+
     .nav-links.active {
         right: 0;
     }
-    
+
     .nav-links li {
         width: 100%;
     }
-    
+
     .nav-links a {
         display: block;
         padding: 10px 0;
         font-size: 18px;
     }
-    
+
     .hero {
         flex-direction: column-reverse;
         padding: 100px 30px 50px;
         text-align: center;
     }
-    
+
     .hero-content h1 {
         font-size: 42px;
     }
-    
+
     .subtitle {
         font-size: 28px;
     }
-    
+
     .hero-btns {
         justify-content: center;
         flex-wrap: wrap;
     }
-    
+
     .stats-container {
         justify-content: center;
         flex-wrap: wrap;
     }
-    
+
     .img-wrapper {
         width: 280px;
         height: 280px;
     }
-    
+
     .section {
         padding: 60px 30px;
     }
-    
+
     .section-title {
         font-size: 36px;
     }
-    
+
     .about-content {
         grid-template-columns: 1fr;
         gap: 40px;
     }
-    
+
     .tech-grid {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         gap: 20px;
     }
-    
+
     .tech-icon {
         width: 50px;
         height: 50px;
     }
-    
+
     .repo-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .contact-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .scroll-top {
         bottom: 20px;
         right: 20px;

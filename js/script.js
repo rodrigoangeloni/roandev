@@ -233,69 +233,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ========== FETCH LANGUAGE STATS ==========
-async function fetchLanguageStats() {
-    try {
-        const reposRes = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`);
-
-        if (reposRes.status === 403) {
-            console.warn('Rate limit exceeded for language stats');
-            return null;
-        }
-
-        if (!reposRes.ok) return null;
-        const repos = await reposRes.json();
-
-        // Objeto para acumular bytes por lenguaje
-        const languageStats = {};
-
-        // Obtener lenguajes de cada repositorio (sin forks)
-        const languagePromises = repos
-            .filter(repo => !repo.fork)
-            .map(async (repo) => {
-                try {
-                    const langRes = await fetch(repo.languages_url);
-                    if (!langRes.ok) return null;
-                    return await langRes.json();
-                } catch (err) {
-                    console.warn(`Error fetching languages for ${repo.name}:`, err);
-                    return null;
-                }
-            });
-
-        const languagesData = await Promise.all(languagePromises);
-
-        // Acumular bytes por lenguaje
-        languagesData.forEach(langData => {
-            if (langData) {
-                Object.entries(langData).forEach(([lang, bytes]) => {
-                    languageStats[lang] = (languageStats[lang] || 0) + bytes;
-                });
-            }
-        });
-
-        // Calcular total de bytes
-        const totalBytes = Object.values(languageStats).reduce((sum, bytes) => sum + bytes, 0);
-
-        // Convertir a porcentajes y ordenar
-        const languagePercentages = Object.entries(languageStats)
-            .map(([lang, bytes]) => ({
-                name: lang,
-                percentage: ((bytes / totalBytes) * 100).toFixed(1)
-            }))
-            .sort((a, b) => b.percentage - a.percentage)
-            .slice(0, 8); // Top 8 lenguajes
-
-        return languagePercentages;
-    } catch (err) {
-        console.error('Error fetching language stats:', err);
-        return null;
-    }
+// ========== STATIC SKILLS DATA ==========
+function getStaticSkills() {
+    return [
+        { name: 'HTML', percentage: 98 },
+        { name: 'CSS', percentage: 96 },
+        { name: 'JavaScript', percentage: 95 },
+        { name: 'Python', percentage: 88 },
+        { name: 'Shell', percentage: 82 },
+        { name: 'Dockerfile', percentage: 79 },
+        { name: 'Go', percentage: 77 },
+        { name: 'Batchfile', percentage: 75 }
+    ];
 }
 
 // ========== RENDER SKILLS ==========
-function renderSkills(languageStats) {
+function renderSkills() {
     const skillsContainer = document.getElementById('skills-container');
+    const languageStats = getStaticSkills();
 
     if (!languageStats || languageStats.length === 0) {
         skillsContainer.innerHTML = '<p style="text-align: center; color: #888;">No se pudieron cargar las habilidades</p>';
@@ -354,18 +309,17 @@ async function fetchData() {
         if (res.status === 403) {
             const resetTime = res.headers.get('X-RateLimit-Reset');
             console.warn('Rate limit exceeded. Reset at:', resetTime ? new Date(resetTime * 1000) : 'unknown');
-            document.getElementById('name').textContent = 'Rate limit alcanzado';
-            document.getElementById('bio').textContent = 'Por favor, espera unos minutos e intenta nuevamente.';
+            // No sobrescribir nombre ni bio, ya son estáticos
             return;
         }
 
         if (!res.ok) throw new Error('Network response was not ok');
         const data = await res.json();
 
-        // Update hero section (textContent es seguro contra XSS)
-        document.getElementById('name').textContent = data.name || data.login;
-        document.getElementById('avatar').src = data.avatar_url;
-        document.getElementById('bio').textContent = data.bio || '🎓 Estudiante de Ciencias de la Computación | 🐧 Admin de servidores Linux | 🏎️ Comunidad gaming 800+ miembros';
+        // Update hero section (nombre y bio ahora son estáticos en HTML)
+        // document.getElementById('name').textContent = data.name || data.login;
+        // document.getElementById('avatar').src = data.avatar_url; // Avatar ahora es local
+        // document.getElementById('bio').textContent = data.bio || '🎓 Estudiante de Ciencias de la Computación | 🐧 Admin de servidores Linux | 🏎️ Comunidad gaming 800+ miembros';
 
         // Update stats (valores numéricos son seguros)
         const statsContainer = document.getElementById('stats');
@@ -462,10 +416,6 @@ async function fetchData() {
         // Add intersection observer for animations
         observeElements();
 
-        // Fetch and render language stats for skills section
-        const languageStats = await fetchLanguageStats();
-        renderSkills(languageStats);
-
 
     } catch (err) {
         console.error('Error fetching data:', err);
@@ -501,4 +451,7 @@ function observeElements() {
 }
 
 // ========== INITIALIZE ==========
-document.addEventListener('DOMContentLoaded', fetchData);
+document.addEventListener('DOMContentLoaded', () => {
+    fetchData();
+    renderSkills(); // Renderizar skills estáticas independientemente de la API
+});
