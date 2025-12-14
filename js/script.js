@@ -247,6 +247,93 @@ function getStaticSkills() {
     ];
 }
 
+// ========== STATIC REPOS FALLBACK ==========
+function getStaticRepos() {
+    return [
+        {
+            name: 'roandev',
+            description: 'Mi portfolio personal con diseño neón cyberpunk',
+            language: 'JavaScript',
+            stargazers_count: 1,
+            forks_count: 0,
+            html_url: 'https://github.com/rodrigoangeloni/roandev'
+        },
+        {
+            name: 'AssettoCorsa-Server',
+            description: 'Configuración y scripts para servidores de Assetto Corsa',
+            language: 'Shell',
+            stargazers_count: 2,
+            forks_count: 1,
+            html_url: 'https://github.com/rodrigoangeloni/AssettoCorsa-Server'
+        },
+        {
+            name: 'docker-configs',
+            description: 'Configuraciones Docker para diferentes servicios',
+            language: 'Dockerfile',
+            stargazers_count: 0,
+            forks_count: 0,
+            html_url: 'https://github.com/rodrigoangeloni/docker-configs'
+        },
+        {
+            name: 'linux-scripts',
+            description: 'Scripts útiles para administración de servidores Linux',
+            language: 'Shell',
+            stargazers_count: 1,
+            forks_count: 0,
+            html_url: 'https://github.com/rodrigoangeloni/linux-scripts'
+        },
+        {
+            name: 'web-projects',
+            description: 'Colección de proyectos web y landing pages',
+            language: 'HTML',
+            stargazers_count: 0,
+            forks_count: 0,
+            html_url: 'https://github.com/rodrigoangeloni/web-projects'
+        },
+        {
+            name: 'python-tools',
+            description: 'Herramientas y automatizaciones en Python',
+            language: 'Python',
+            stargazers_count: 0,
+            forks_count: 0,
+            html_url: 'https://github.com/rodrigoangeloni/python-tools'
+        }
+    ];
+}
+
+// ========== RENDER REPOS ==========
+function renderRepos(repos) {
+    const grid = document.getElementById('repo-grid');
+    grid.innerHTML = '';
+
+    repos.forEach((repo, index) => {
+        const card = document.createElement('div');
+        card.className = 'repo-card';
+        card.style.animationDelay = `${index * 0.1}s`;
+
+        const safeName = escapeHtml(repo.name);
+        const safeDescription = escapeHtml(repo.description || 'Sin descripción disponible');
+        const safeLanguage = escapeHtml(repo.language || '');
+        const safeUrl = escapeHtml(repo.html_url);
+
+        card.innerHTML = `
+            <h3>${safeName}</h3>
+            <p>${safeDescription}</p>
+            <div class="repo-meta">
+                ${safeLanguage ? `<span><i class="fa-solid fa-code"></i> ${safeLanguage}</span>` : ''}
+                <span><i class="fa-solid fa-star"></i> ${Number(repo.stargazers_count) || 0}</span>
+                <span><i class="fa-solid fa-code-branch"></i> ${Number(repo.forks_count) || 0}</span>
+            </div>
+            <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="repo-link">
+                Ver Repositorio <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        `;
+        grid.appendChild(card);
+    });
+
+    observeElements();
+}
+
 // ========== RENDER SKILLS ==========
 function renderSkills() {
     const skillsContainer = document.getElementById('skills-container');
@@ -309,7 +396,8 @@ async function fetchData() {
         if (res.status === 403) {
             const resetTime = res.headers.get('X-RateLimit-Reset');
             console.warn('Rate limit exceeded. Reset at:', resetTime ? new Date(resetTime * 1000) : 'unknown');
-            // No sobrescribir nombre ni bio, ya son estáticos
+            // Usar repos estáticos como fallback
+            renderRepos(getStaticRepos());
             return;
         }
 
@@ -371,56 +459,27 @@ async function fetchData() {
 
         // Manejo de rate limiting para repos
         if (reposRes.status === 403) {
-            console.warn('Rate limit exceeded for repos');
+            console.warn('Rate limit exceeded for repos, using static fallback');
+            renderRepos(getStaticRepos());
             return;
         }
 
         if (!reposRes.ok) throw new Error('Error fetching repositories');
         const repos = await reposRes.json();
 
-        // Update portfolio grid
-        const grid = document.getElementById('repo-grid');
-        grid.innerHTML = '';
-
         // Filter and limit to top 6 repos
         const topRepos = repos
             .filter(repo => !repo.fork) // Exclude forked repos
             .slice(0, 6);
 
-        topRepos.forEach((repo, index) => {
-            const card = document.createElement('div');
-            card.className = 'repo-card';
-            card.style.animationDelay = `${index * 0.1}s`;
-
-            // Sanitizar datos del repo para prevenir XSS
-            const safeName = escapeHtml(repo.name);
-            const safeDescription = escapeHtml(repo.description || 'Sin descripción disponible');
-            const safeLanguage = escapeHtml(repo.language || '');
-            const safeUrl = escapeHtml(repo.html_url);
-
-            card.innerHTML = `
-                <h3>${safeName}</h3>
-                <p>${safeDescription}</p>
-                <div class="repo-meta">
-                    ${safeLanguage ? `<span><i class="fa-solid fa-code"></i> ${safeLanguage}</span>` : ''}
-                    <span><i class="fa-solid fa-star"></i> ${Number(repo.stargazers_count) || 0}</span>
-                    <span><i class="fa-solid fa-code-branch"></i> ${Number(repo.forks_count) || 0}</span>
-                </div>
-                <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="repo-link">
-                    Ver Repositorio <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            `;
-            grid.appendChild(card);
-        });
-
-        // Add intersection observer for animations
-        observeElements();
-
+        // Usar la función renderRepos para mostrar los repos
+        renderRepos(topRepos);
 
     } catch (err) {
         console.error('Error fetching data:', err);
-        document.getElementById('name').textContent = 'Error al cargar datos';
-        document.getElementById('bio').textContent = 'No se pudo conectar con GitHub API';
+        // El nombre, avatar y bio son estáticos en HTML, no los sobrescribimos con errores
+        // Mostrar repos estáticos como fallback
+        renderRepos(getStaticRepos());
     }
 }
 
